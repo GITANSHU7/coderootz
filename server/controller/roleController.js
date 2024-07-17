@@ -14,25 +14,50 @@ exports.createRole = async (req, res) => {
         }
       const savedRole = await newRole.save();
       res.status(201).json(savedRole);
-    } catch (err) {
-      // Handle validation or other errors
-     console.log(err);
+    } catch (error) {
+     
+        return res.status(500).json({ error: error.message });
     }
   };
 
-  // list role with pagination page and per_page_record
 
-    exports.getRoles = async (req, res) => {
-        try {
-            const page = parseInt(req.query.page);
-            const per_page_record = parseInt(req.query.per_page_record);
-            const skipIndex = (page - 1) * per_page_record;
-            const roles = await Role.find().limit(per_page_record).skip(skipIndex);
-            res.status(200).json(roles);
-        } catch (err) {
-            console.log(err);
+exports.getRoles = async (req, res) => {
+   
+    try {
+
+        const page = parseInt(req.query.page);
+        const per_page_record = parseInt(req.query.per_page_record);
+
+        let roles;
+        let total;
+
+        if (page && per_page_record) {
+            const pageInt = parseInt(page);
+            const perPageRecordInt = parseInt(per_page_record);
+            const startIndex = (pageInt - 1) * perPageRecordInt;
+            total = await Role.countDocuments();
+            roles = await Role.find()
+                .select("-password")
+                .sort({ createdAt: -1 })
+                .skip(startIndex)
+                .limit(perPageRecordInt);
+        } else {
+            roles = await Role.find().sort({ createdAt: -1 });
+            total = roles.length;
         }
+
+        return res.json({
+            message: "Role list retrieved successfully",
+            data: roles,
+            total: total,
+            success: true,
+        });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
+
+}
+
 
     // assign role to user
 
@@ -47,7 +72,22 @@ exports.createRole = async (req, res) => {
             await user.save();
             res.status(200).json({ message: 'Role assigned successfully',  data: user });
         }
-        catch (err) {
-            console.log(err);
+        catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    // get Role by id
+
+    exports.getRoleById = async (req, res) => {
+        try {
+            const roleId = req.params.id;
+            const role = await Role.findById(roleId);
+            if (!role) {
+                return res.status(404).json({ message: 'Role not found' });
+            }
+            res.status(200).json(role);
+        } catch (err) {
+            return res.status(500).json({ error: error.message });
         }
     }

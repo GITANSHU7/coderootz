@@ -8,8 +8,13 @@ exports.createUser = async (req, res) => {
         const newUser = new User({ name, email, role, username });
         // check if user already exists
         const userExists = await User.findOne({ email });
+        const usernameExists = await User.findOne({ username });    
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
+        }
+
+        if (usernameExists) {
+            return res.status(400).json({ message: 'Username already exists' });
         }
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
@@ -50,7 +55,7 @@ exports.getUsers = async (req, res) => {
           .skip(startIndex)
           .limit(perPageRecordInt);
       } else {
-        users = await User.find().select("-password").sort({ createdAt: -1 });
+        users = await User.find().populate('role').select("-password").sort({ createdAt: -1 });
         total = users.length;
       }
   

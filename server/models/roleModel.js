@@ -9,7 +9,8 @@ const roleSchema = new mongoose.Schema({
         message: 'Name field is required',
         unique: true
     },
-    menus: [{ type: String }]
+    menus: [{ type: String }],
+   
 }, { timestamps: true });
 
 module.exports = mongoose.model('Role', roleSchema);
