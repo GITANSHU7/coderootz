@@ -27,15 +27,7 @@ exports.createUser = async (req, res) => {
 // get all users with pagination
 
 exports.getUsers = async (req, res) => {
-    // try {
-    //     const page = parseInt(req.query.page);
-    //     const per_page_record = parseInt(req.query.per_page_record);
-    //     const skipIndex = (page - 1) * per_page_record;
-    //     const users = await User.find().populate('role').skip(skipIndex).limit(per_page_record);
-    //     res.status(200).json({data: users, message: 'Users found successfully', success: true });
-    // } catch (err) {
-    //     console.log(err);
-    // }
+
     try {
      
       const page = parseInt(req.query.page);

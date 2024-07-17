@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Role = require('../models/roleModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -66,12 +67,20 @@ exports.signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // assign default role to user
+    const role = await Role.findOne({ name: 'User' });
+    if (!role) {
+      return res.status(500).json({ error: "Role not found" });
+    }
+
+    
     // Create a new user
     const newUser = new User({
       username,
       email,
       name,
       password: hashedPassword,
+        role: role._id,
     });
 
     const savedUser = await newUser.save();
@@ -84,4 +93,12 @@ exports.signup = async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 
+}
+
+//signout user
+exports.signout = async (req, res) => {
+    res.clearCookie('token');
+    res.json({
+        message: 'User signout successfully'
+    });
 }

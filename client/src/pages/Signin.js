@@ -29,7 +29,7 @@ const Signin = () => {
             localStorage.setItem("userData", JSON.stringify(response.data));
             toast.success("Login successful");
             setAuthenticated(true)
-            navigate("/");
+            navigate("/dashboard");
 
         } catch (error) {
             setLoading(false);
@@ -51,7 +51,7 @@ const Signin = () => {
 
     useEffect(() => {
         if (authenticated) {
-            navigate("/")
+            navigate("/dashboard")
         }
     }, [authenticated]);
 

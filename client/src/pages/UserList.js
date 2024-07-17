@@ -16,7 +16,7 @@ import {
     Pagination,
     Label,
     Select,
-} from "flowbite-react"; // Assuming flowbite-react contains these components
+} from "flowbite-react";
 import { tableTheme } from "../theme/tableTheme";
 
 const UserList = () => {

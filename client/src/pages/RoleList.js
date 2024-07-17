@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
-import { FaEdit, FaEye } from "react-icons/fa";
-import { HiOutlineExclamationCircle, HiPlusCircle } from "react-icons/hi";
-import { IoIosRefreshCircle } from "react-icons/io";
-import { RiDeleteBin6Fill } from "react-icons/ri";
 import {
     Button,
+    Label,
     Modal,
-    Table,
-    TextInput,
     Pagination,
-    Label
-} from "flowbite-react"; // Assuming flowbite-react contains these components
-import { tableTheme } from "../theme/tableTheme";
+    Table,
+    TextInput
+} from "flowbite-react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FaEye } from "react-icons/fa";
+import { HiPlusCircle } from "react-icons/hi";
+import { IoIosRefreshCircle } from "react-icons/io";
 import Select from 'react-select';
 import { modalTheme } from "../theme/modalTheme";
+import { tableTheme } from "../theme/tableTheme";
 
 
 const RoleList = () => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    const [editModalOpen, setEditModalOpen] = useState(false);
+ 
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [viewModalOpen, setViewModalOpen] = useState(false);
     const [roleView, setRoleView] = useState(null);
@@ -37,7 +35,9 @@ const RoleList = () => {
         { name: "User Management" },
         { name: "Role Management" },
         { name: "Dashboard" },
-        { name: "About Us" },
+        { name: "Profile" },
+        { name: "Settings" },
+        { name: "Notifications" },
     ]
 
 
@@ -445,6 +445,7 @@ const RoleList = () => {
                     </div>
                 </Modal.Body>
             </Modal>
+
         </>
     )
 }
