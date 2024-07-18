@@ -10,8 +10,11 @@ const PrivateRoutes = () => {
     return (
         authenticated ? <>
             <Sidebar />
-            <Outlet />
-            
+            <div className='min-h-screen'>
+                <Outlet />
+            </div>
+            <AppFooter />
+
         </> : <Navigate to='/signin' />
     )
 }

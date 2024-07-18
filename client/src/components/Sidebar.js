@@ -90,8 +90,8 @@ export default function Sidebar() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <Box sx={{ flexGrow: 1 }} >
+            <AppBar position="static" className='dark:bg-slate-900 ' >
                 <Toolbar>
                     <IconButton
                         size="large"

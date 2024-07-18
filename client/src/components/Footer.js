@@ -6,9 +6,10 @@ const AppFooter = () => {
   const year = new Date().getFullYear();
   return (
     <div className="flex mt-0 -mb-10">
-      <div className="flex-grow">{/* Your main content goes here */}</div>
-      <Footer container className="mt-auto ">
+    
+          <Footer container className="mt-auto bg-blue-500 text-white dark:bg-slate-900 ">
         <Footer.Copyright
+        className="text-white"
           by="Made With 💓 by GitanshuGautam"
           year={year}
         />

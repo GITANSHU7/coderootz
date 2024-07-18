@@ -18,6 +18,7 @@ import {
     Select,
 } from "flowbite-react";
 import { tableTheme } from "../theme/tableTheme";
+import { modalTheme } from "../theme/modalTheme";
 
 const UserList = () => {
     const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ const UserList = () => {
     const [userIdToDelete, setUserIdToDelete] = useState(null);
     const [userToEdit, setUserToEdit] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [newUser, setNewUser] = useState({ name: "", email: "", username: "" });
+    const [newUser, setNewUser] = useState({ name: "", email: "", username: "", role:"" });
     const [searchQuery, setSearchQuery] = useState("");
     const [role, setRole] = useState("");
 
@@ -369,17 +370,20 @@ const UserList = () => {
 
             {/* Edit User Modal */}
             <Modal
+                theme={modalTheme}
+                position={'center'}
                 show={editModalOpen}
                 size="md"
                 onClose={() => setEditModalOpen(false)}
                 popup
             >
-                <Modal.Header />
+                <Modal.Header className="justify-center">
+                    Edit User
+
+                </Modal.Header>
                 <Modal.Body>
                     <div className="text-center">
-                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Edit User
-                        </h3>
+                       
                         <div className="flex flex-col gap-4">
                             <div>
                                 <Label htmlFor="name" value="name" />
@@ -466,17 +470,20 @@ const UserList = () => {
 
             {/* Create User Modal */}
             <Modal
+                theme={modalTheme}
+                position={'center'}
                 show={createModalOpen}
                 size="md"
                 onClose={() => setCreateModalOpen(false)}
                 popup
             >
-                <Modal.Header />
+                <Modal.Header className="justify-center">
+                    Add User
+
+                </Modal.Header>
                 <Modal.Body>
                     <div className="text-center">
-                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            add-user
-                        </h3>
+                        
                         <div className="flex flex-col gap-4">
                             <div>
                                 <Label htmlFor="newName" value="name" />
@@ -520,15 +527,15 @@ const UserList = () => {
                                     }
                                 />
                             </div>
+                           
                             <div>
                                 <Label htmlFor="role" value="role" />
                                 <Select
                                     id="role"
-                                    value={newUser.role?._id || ""}
-                                   
+                                    value={newUser?.role?._id || ""}
                                     onChange={(e) =>
-                                        setUserToEdit({
-                                            ...userToEdit,
+                                        setNewUser({
+                                            ...newUser,
                                             role: e.target.value,
                                         })
                                     }

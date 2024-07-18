@@ -18,11 +18,13 @@ exports.createUser = async (req, res) => {
         }
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
-    } catch (err) {
+    } catch (error) {
         // Handle validation or other errors
-        console.log(err);
+        console.log(error);
+        return res.status(500).json({ error: error.message });
     }
 }
+
 
 // get all users with pagination
 
@@ -146,7 +148,9 @@ exports.getUserById = async (req, res) => {
             message: 'User found successfully'
         });
     }
-    catch (err) {
-        console.log(err);
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: error.message });
+        
     }
 }

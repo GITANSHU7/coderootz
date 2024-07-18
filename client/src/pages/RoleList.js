@@ -204,7 +204,7 @@ const RoleList = () => {
                             <div className="flex space-x-2 rtl:space-x-reverse">
                                 <Button color="gray" onClick={handleCreateClick}>
                                     <HiPlusCircle className="mr-2 h-5 w-5" />
-                                    Add User
+                                    Add Role
                                 </Button>
                                 <Button
                                     color="gray"
@@ -387,18 +387,21 @@ const RoleList = () => {
 
             {/* create Modal */}
             <Modal
+                theme={modalTheme}
+                position={'center'}
                 show={createModalOpen}
                 size="lg"
                 onClose={() => setCreateModalOpen(false)}
                 popup
 
             >
-                <Modal.Header />
+                <Modal.Header className="justify-center">
+                    Add Role
+
+                </Modal.Header>
                 <Modal.Body>
                     <div className="text-center">
-                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Add Role
-                        </h3>
+                       
                         <div className="flex flex-col gap-4">
                             <div>
                                 <Label htmlFor="newName" value="name" />
